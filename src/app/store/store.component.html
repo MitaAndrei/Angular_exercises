@@ -1,0 +1,100 @@
+<h2>Store table</h2>
+<div class="search">
+    <form (ngSubmit)="SearchStore(input)">
+    <input type="text" placeholder="search" [(ngModel)]="input" name="search" id="search" required>
+    <button  class="button" type="submit">Search</button>
+  </form>
+  </div>
+
+  <div class="buttons">
+    <button  class="button" type="submit" (click)="SortByIncome()">Sort by income</button>
+    <button  class="button" type="submit" (click)="GetOldestStore()">Get oldest store</button>
+    <button  class="button" type="submit" (click)="getAllStores()">Get all stores</button>
+
+  </div>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Country</th>
+        <th>City</th>
+        <th>Monthly Income</th>
+        <th>Owner Name</th>
+        <th>Active Since</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let store of stores">
+        <td>{{store.id}}</td>
+        <td>{{store.name}}</td>
+        <td>{{store.country}}</td>
+        <td>{{store.city}}</td>
+        <td>{{store.monthlyIncome}}</td>
+        <td>{{store.ownerName}}</td>
+        <td>{{store.activeSince | date}}</td>
+        <td>
+          <button  class="edit" (click)="toggleEditForm(store)">edit</button>
+          <button  class="delete" (click)="DeleteStore(store.id)">delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button (click)="toggleCreateForm()">Create store</button>
+
+  <div *ngIf="showCreateForm">
+    <h2>Create form</h2>
+    <form (ngSubmit)="createStore()">
+      <div class="margbot">
+        <label for="name">name</label>
+        <input type="text" name="name" id="name" [(ngModel)]="store.name" required>
+      </div>
+      <div class="margbot">
+        <label for="country">Country</label>
+        <input type="text" name="country" id="country" [(ngModel)]="store.country" required>
+      </div>
+      <div class="margbot">
+        <label for="city">City</label>
+        <input type="text" name="city" id="city" [(ngModel)]="store.city" required>
+      </div>
+      <div class="margbot">
+        <label for="monthlyIncome">Monthly Income</label>
+        <input type="text" name="monthlyIncome" id="monthlyIncome" [(ngModel)]="store.monthlyIncome" required>
+      </div>
+      <div class="margbot">
+        <label for="ownerName">Owner Name</label>
+        <input type="text" name="ownerName" id="ownerName" [(ngModel)]="store.ownerName" required>
+      </div>
+      <button type="submit">Create Store</button>
+    </form>
+  </div>
+
+
+  <div *ngIf="showEditForm">
+    <h2>Edit form</h2>
+    <form (ngSubmit)="UpdateStore(beingEdited)">
+        <div class="margbot">
+            <label for="name">name</label>
+            <input type="text" name="name" id="name" [(ngModel)]="beingEdited.name" required>
+          </div>
+          <div class="margbot">
+            <label for="country">Country</label>
+            <input type="text" name="country" id="country" [(ngModel)]="beingEdited.country" required>
+          </div>
+          <div class="margbot">
+            <label for="city">City</label>
+            <input type="text" name="city" id="city" [(ngModel)]="beingEdited.city" required>
+          </div>
+          <div class="margbot">
+            <label for="monthlyIncome">Monthly Income</label>
+            <input type="text" name="monthlyIncome" id="monthlyIncome" [(ngModel)]="beingEdited.monthlyIncome" required>
+          </div>
+          <div class="margbot">
+            <label for="ownerName">Owner Name</label>
+            <input type="text" name="ownerName" id="ownerName" [(ngModel)]="beingEdited.ownerName" required>
+          </div>
+      <button type="submit">Edit Product</button>
+    </form>
+  </div>
